@@ -1,0 +1,164 @@
+<div class="row">
+    <div class="col-12">
+        <div class="content-header">Machines</div>
+    </div>
+</div>
+
+<section id="extended">
+    <div class="col-12">
+        <div class="card">
+            <!-- <div class="card-header">
+                 <h4 class="card-title" id="clickHere">Add new</h4>
+            </div> -->
+            <div class="card-content">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 col-12">
+                            <div class="position-relative">
+                                <div class="form-group">
+                                    <label class="font-small-2 font-weight-normal">Name</label>
+                                    <input class="form-control"
+                                        (change)='newMachineName=$event.target.value' [value]="newMachineName" />
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-12">
+                            <div class="position-relative">
+                                <div class="form-group">
+                                    <label class="font-small-2 font-weight-normal">Description</label>
+                                    <input class="form-control" (change)='newMachineDescription=$event.target.value'
+                                        [value]="newMachineDescription" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-12">
+                            <div class="position-relative">
+                                <div class="form-group">
+                                    <label class="font-small-2 font-weight-normal"> </label>
+                                    <button type="button" class="btn btn-primary mr-1 mb-1" style="display: block" (click)="addMachine()">Add
+                                        machine</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title" id="clickHere"></h4>
+            </div>
+            <div class="card-content">
+                <div class="card-body table-responsive">
+                    <table class="table text-center m-0">
+                        <thead>
+                            <tr>
+                                <th style="width:10%">#</th>
+                                <th style="width:1%"></th>
+                                <th style="width:10%;text-align: left;">Name</th>
+                                <th style="width:60%;text-align: left;">Description</th>
+                                <!-- <th>Inserted At</th>
+                                    <th>Inserted By</th> -->
+                                <!-- <th>Last modified</th>
+                                    <th>Last modified By</th> -->
+                                <th style="width:20%"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let machine of machinesObservable;let i=index;">
+                                <td>{{ i+1 }}</td>
+                                <td></td>
+                                <td style="text-align: left;">{{machine.name}}</td>
+                                <td style="text-align: left;">{{machine.info}}</td>
+                                <!-- <td>{{dateFromEpoch(machine.insertAt) | date:"yyyy-MM-dd HH:mm:ss"}}</td>
+                                    <td>{{machine.insertBy}}</td> -->
+                                <!-- <td>{{dateFromEpoch(machine.changeAt) | date:"yyyy-MM-dd HH:mm:ss"}}</td>
+                                    <td>{{machine.changeBy}}</td> -->
+                                <td class="text-truncate">
+                                    <a href="javascript:;" (click)="openModal(machine)" class="success p-0">
+                                        <i class="ft-edit-2 font-medium-3 mr-2"></i>
+                                    </a>
+                                    <a href="javascript:;" (click)="openModalDelete(machine)" class="danger p-0">
+                                        <i class="ft-x font-medium-3"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<!--Shopping cart ends-->
+
+<ng-template #modalContentEdit let-close="close">
+    <div class="modal-header">
+        <h5 class="modal-title">Edit machine</h5>
+        <button type="button" class="close" (click)="close()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form action="#" class="form form-horizontal">
+            <div class="form-body">
+                <div class="form-group">
+                    <label>Name</label><input type="text" style="width:20em" name="event-title" class="form-control"
+                        value="{{modalData.machine.name}}" [(ngModel)]="modalData.newName">
+                    <label>Description</label><input type="text" style="width:20em" name="event-title2"
+                        class="form-control" value="{{modalData.machine.info}}" [(ngModel)]="modalData.newInfo">
+
+                    <!-- <hr>
+            <p class="mt-0 mb-2 font-small-3">Created: {{dateFromEpoch(modalData.machine.insert_at) | date:"yyyy-MM-dd"}}</p>
+            <p class="mt-0 mb-2 font-small-3">By: {{modalData.machine.insert_by}}</p> -->
+                    <hr>
+                    <p class="mt-0 mb-2 font-small-3">Last change: {{dateFromEpoch(modalData.machine.change_at) |
+                        date:"yyyy-MM-dd"}}</p>
+                    <p class="mt-0 mb-2 font-small-3">By: {{modalData.machine.change_by}}</p>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary mr-1 mb-1" style="color:black;background-color: white;"
+            (click)="close()">Cancel</button>
+        <button type="button" class="btn btn-primary mr-1 mb-1"
+            (click)="editMachine(modalData.machine);close()">OK</button>
+    </div>
+</ng-template>
+
+
+<!-- <button class="btn btn-primary mr-1 mb-1" (click)="openModalDelete()">delete </button> -->
+<ng-template #modalContentDelete let-close="close">
+    <div class="modal-header">
+        <h5 class="modal-title">Delete machine</h5>
+        <button type="button" class="close" (click)="close()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form action="#" class="form form-horizontal">
+            <div class="form-body">
+                <div class="form-group">
+                    <label>Are you sure you want to delete <br><b>{{modalData.machine.name}}</b>?</label>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary mr-1 mb-1" style="color:black;background-color: white;"
+            (click)="close()">Cancel</button>
+        <button type="button" class="btn btn-primary mr-1 mb-1"
+            (click)="deleteMachine(modalData.machine.id);close()">OK</button>
+    </div>
+</ng-template>

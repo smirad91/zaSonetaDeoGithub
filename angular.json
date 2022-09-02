@@ -19,7 +19,7 @@
               "lodash",
               "css-element-queries"
             ],
-            "outputPath": "dist",
+            "outputPath": "dist", 
             "index": "src/index.html",
             "main": "src/main.ts",
             "tsConfig": "src/tsconfig.app.json",
